@@ -4,6 +4,9 @@
   "description": "[![Actions Status](https://github.com/mirreinh/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/mirreinh/frontend-project-lvl2/actions)",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +24,8 @@
     "eslint": "^7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1"
+  },
+  "dependencies": {
+    "commander": "^7.0.0"
   }
 }
