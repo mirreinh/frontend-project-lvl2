@@ -14,6 +14,6 @@ const beforePath = getFixturePath('before.json');
 const afterPath = getFixturePath('after.json');
 
 test('genDiff', () => {
-    const result = readFile('result');
-    expect(genDiff(beforePath, afterPath)).toEqual(result);
-  });
+  const result = readFile('result');
+  expect(genDiff(beforePath, afterPath)).toEqual(result);
+});
