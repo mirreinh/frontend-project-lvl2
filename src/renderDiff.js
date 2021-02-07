@@ -9,22 +9,22 @@ const renderDiff = (before, after) => {
   const state = [
     {
       check: (value) => (value in before) && (value in after) && (before[value] === after[value]),
-      getMessage: (value) => `  ${value}: ${before[value]}\n`,
+      getMessage: (value) => `    ${value}: ${before[value]}\n`,
     },
     {
       check: (value) => (value in before) && (value in after) && (before[value] !== after[value]),
-      getMessage: (value) => `- ${value}: ${before[value]}\n + ${value}: ${after[value]}\n`,
+      getMessage: (value) => `  - ${value}: ${before[value]}\n  + ${value}: ${after[value]}\n`,
     },
     {
       check: (value) => value in after,
-      getMessage: (value) => `+ ${value}: ${after[value]}\n`,
+      getMessage: (value) => `  + ${value}: ${after[value]}\n`,
     },
     {
       check: (value) => value in before,
-      getMessage: (value) => `- ${value}: ${before[value]}\n`,
+      getMessage: (value) => `  - ${value}: ${before[value]}\n`,
     },
   ];
-  const diffList = uniqKeys.reduce((acc, value) => `${acc} ${state.find(({ check }) => check(value)).getMessage(value)}`, '');
+  const diffList = uniqKeys.reduce((acc, value) => `${acc}${state.find(({ check }) => check(value)).getMessage(value)}`, '');
   return `{\n${diffList}}`;
 };
 
