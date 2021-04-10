@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const renderDiff = (before, after) => {
+const getAst = (before, after) => {
   const beforeKeys = Object.keys(before);
   const afterKeys = Object.keys(after);
   const concatKeys = _.concat(beforeKeys, afterKeys);
@@ -8,24 +8,35 @@ const renderDiff = (before, after) => {
 
   const state = [
     {
-      check: (value) => (value in before) && (value in after) && (before[value] === after[value]),
-      getMessage: (value) => `    ${value}: ${before[value]}\n`,
+      check: (key) => before[key] instanceof Object && after[key] instanceof Object,
+      buildNode: (key) => ({ type: 'children', key, children: getAst(before[key], after[key]) }),
     },
     {
-      check: (value) => (value in before) && (value in after) && (before[value] !== after[value]),
-      getMessage: (value) => `  - ${value}: ${before[value]}\n  + ${value}: ${after[value]}\n`,
+      check: (key) => _.has(before, key)
+        && _.has(after, key) && (before[key] === after[key]),
+      buildNode: (key) => ({ type: 'unchanged', key, valueAfter: after[key] }),
     },
     {
-      check: (value) => value in after,
-      getMessage: (value) => `  + ${value}: ${after[value]}\n`,
+      check: (key) => _.has(after, key)
+        && !_.has(before, key),
+      buildNode: (key) => ({ type: 'added', key, valueAfter: after[key] }),
     },
     {
-      check: (value) => value in before,
-      getMessage: (value) => `  - ${value}: ${before[value]}\n`,
+      check: (key) => _.has(before, key)
+        && !_.has(after, key),
+      buildNode: (key) => ({ type: 'deleted', key, valueBefore: before[key] }),
+    },
+    {
+      check: (key) => _.has(before, key)
+        && _.has(after, key) && (before[key] !== after[key]),
+      buildNode: (key) => ({
+        type: 'changed', key, valueBefore: before[key], valueAfter: after[key],
+      }),
     },
   ];
-  const diffList = uniqKeys.reduce((acc, value) => `${acc}${state.find(({ check }) => check(value)).getMessage(value)}`, '');
-  return `{\n${diffList}}`;
+  const ast = uniqKeys.map((key) => state.find(({ check }) => check(key))
+    .buildNode(key));
+  return ast;
 };
 
-export default renderDiff;
+export default getAst;

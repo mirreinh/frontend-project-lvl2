@@ -15,12 +15,12 @@ test('genDiff json', () => {
   const beforePath = getFixturePath('before.json');
   const afterPath = getFixturePath('after.json');
   const result = readFile('result');
-  expect(genDiff(beforePath, afterPath)).toEqual(result);
+  expect(genDiff(afterPath, beforePath, 'stylish')).toEqual(result);
 });
 
 test('genDiff yaml', () => {
   const beforePath = getFixturePath('before.yaml');
   const afterPath = getFixturePath('after.yaml');
   const result = readFile('result');
-  expect(genDiff(beforePath, afterPath)).toEqual(result);
+  expect(genDiff(afterPath, beforePath, 'stylish')).toEqual(result);
 });
