@@ -1,13 +1,10 @@
 /* eslint-disable import/extensions */
 import parse from './src/parser.js';
-import getAst from './src/renderDiff.js';
-import getTree from './src/formatters/stylish.js';
-
-const renderers = {
-  stylish: getTree,
-};
+import buildAst from './src/renderDiff.js';
+import getRender from './src/formatters/index.js';
 
 export default (pathOne, pathTwo, format) => {
-  const ast = getAst(parse(pathOne), parse(pathTwo));
-  return renderers[format](ast);
+  const ast = buildAst(parse(pathOne), parse(pathTwo));
+  const render = getRender(format);
+  return render(ast);
 };

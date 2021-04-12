@@ -22,7 +22,8 @@ const getAst = (before, after) => {
     },
     {
       check: (key) => _.has(before, key) && _.has(after, key) && (before[key] !== after[key]),
-      buildNode: (key) => ({ type: 'changed', key, valueBefore: before[key], valueAfter: after[key],
+      buildNode: (key) => ({
+        type: 'changed', key, valueBefore: before[key], valueAfter: after[key],
       }),
     },
   ];
