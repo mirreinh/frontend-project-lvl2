@@ -13,5 +13,5 @@ export default (filePath) => {
   const pathExt = path.extname(processedPath);
   const pathExtName = pathExt.slice(1);
   const file = fs.readFileSync(processedPath);
-  return parsers[pathExtName](file);
+  return parsers[pathExtName] && parsers[pathExtName](file);
 };
