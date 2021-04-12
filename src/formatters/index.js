@@ -1,11 +1,11 @@
-import tree from './stylish.js';
-import plane from './toPlane.js';
+import stylish from './stylish.js';
+import plain from './toPlain.js';
 import json from './toJson.js';
 
 const renderers = {
-  tree,
-  plane,
+  stylish,
+  plain,
   json,
 };
 
-export default (format) => renderers[format] ?? tree;
+export default (format) => renderers[format] ?? stylish;
