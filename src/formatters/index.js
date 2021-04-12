@@ -8,4 +8,4 @@ const renderers = {
   json,
 };
 
-export default (format) => renderers[format];
+export default (format) => renderers[format] ?? tree;
