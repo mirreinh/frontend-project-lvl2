@@ -2,7 +2,8 @@ import _ from 'lodash';
 
 const getAst = (before, after) => {
   const objectsValid = (before instanceof Object) && (after instanceof Object);
-  const uniqKeys = objectsValid ? _.union(Object.keys(before), Object.keys(after)).sort() : [];
+  const uniqKeys = objectsValid ? _.union(Object.keys(before), Object.keys(after)) : [];
+  const sortedKeys = _.sortBy(uniqKeys);
 
   const state = [
     {
@@ -28,7 +29,7 @@ const getAst = (before, after) => {
       }),
     },
   ];
-  return uniqKeys.map((key) => state.find(({ check }) => check(key)).buildNode(key));
+  return sortedKeys.map((key) => state.find(({ check }) => check(key)).buildNode(key));
 };
 
 export default getAst;
