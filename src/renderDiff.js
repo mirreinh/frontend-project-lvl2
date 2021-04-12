@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 const getAst = (before, after) => {
-  const uniqKeys = _.union(Object.keys(before), Object.keys(after)).sort();
+  const objectsValid = (before instanceof Object) && (after instanceof Object);
+  const uniqKeys = objectsValid ? _.union(Object.keys(before), Object.keys(after)).sort() : [];
 
   const state = [
     {
