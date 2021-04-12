@@ -17,7 +17,7 @@ const beforePathYaml = getFixturePath('before.yaml');
 const afterPathYaml = getFixturePath('after.yaml');
 
 test('genDiff json to tree', () => {
-  const result = readFile('treeResult');
+  const result = readFile('stylishResult');
   expect(genDiff(beforePathJson, afterPathJson, 'tree')).toEqual(result);
 });
 
@@ -27,11 +27,11 @@ test('genDiff json to plane', () => {
 });
 
 test('genDiff yaml to tree', () => {
-  const result = readFile('treeResult');
+  const result = readFile('stylishResult');
   expect(genDiff(beforePathYaml, afterPathYaml, 'tree')).toEqual(result);
 });
 
 test('genDiff yaml to plane', () => {
   const result = readFile('planeResult');
-  expect(genDiff(beforePathYaml, afterPathYaml, 'plane')).toBe(result);
+  expect(genDiff(beforePathYaml, afterPathYaml, 'plane')).toEqual(result);
 });
